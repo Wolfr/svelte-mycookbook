@@ -11,20 +11,19 @@
     activeOption,
     showOptions = false,
     selected = {},
-    first = true,
+    first = false,
     slot
   const iconClearPath = 'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z';
 
   onMount(() => {
     slot.querySelectorAll('option').forEach(o => {
       o.selected && !value.includes(o.value) && (value = [...value, o.value]);
-      options = [...options, {value: o.value, name: o.textContent}]
+      options = [...options, { value: o.value, name: o.textContent}]
     });
     value && (selected = options.reduce((obj, op) => value.includes(op.value) ? {...obj, [op.value]: op} : obj, {}));
-    first = false;
   });
 
-  $: if (!first) value = Object.values(selected).map(o => o.value);
+  $: if (!first) inputValue=''
   $: filtered = options.filter(o => inputValue ? o.name.toLowerCase().includes(inputValue.toLowerCase()) : o);
   $: if (activeOption && !filtered.includes(activeOption) || !activeOption && inputValue) activeOption = filtered[0];
 
@@ -93,10 +92,6 @@
     }
   }
 </script>
-
-<style>
-
-</style>
 
 <div class="c-multiselect" class:readonly>
   <div class="c-multiselect__tokens" class:showOptions on:click={handleTokenClick}>

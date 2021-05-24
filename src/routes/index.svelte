@@ -1,8 +1,7 @@
 <script>
   import RichContent from '$lib/RichContent.svelte';
   import Button from '$lib/Button.svelte';
-
-
+  import MultiSelect from 'svelte-select';
   import Container from '$lib/Container.svelte';
   import ResetRem from '$lib/ResetRem.svelte';
 
@@ -15,11 +14,37 @@
   let toggled = false;
   let title = "Blank recipe";
 
-  // https://svelte.dev/repl/c7094fb1004b440482d2a88f4d1d7ef5?version=3.14.0
-  import MultiSelect from '$lib/MultiSelect.svelte';
-  let valueMultiSelect = null;
 
   import { autoresize } from '$lib/autosize.js';
+
+  let selectedValue;
+  const complexItems = [
+   { value: 'French', label: 'French', group: 'All' },
+   { value: 'Indian', label: 'Indian', group: 'All' },
+   { value: 'Italian', label: 'Italian', group: 'All' },
+   { value: 'Japanese', label: 'Japanese', group: 'All' },
+   { value: 'Mexican', label: 'Mexican', group: 'All' },
+   { value: 'African', label: 'African', group: 'All' },
+   { value: 'American', label: 'American', group: 'All' },
+   { value: 'British', label: 'British', group: 'All' },
+   { value: 'Caribbean', label: 'Caribbean', group: 'All' },
+   { value: 'Chinese', label: 'Chinese', group: 'All' },
+   { value: 'Greek', label: 'Greek', group: 'All' },
+   { value: 'Korean', label: 'Korean', group: 'All' },
+   { value: 'Moroccan', label: 'Moroccan', group: 'All' },
+   { value: 'Pakistani', label: 'Pakistani', group: 'All' },
+   { value: 'Portuguese', label: 'Portuguese', group: 'All' },
+   { value: 'South American', label: 'South American', group: 'All' },
+   { value: 'Spanish', label: 'Spanish', group: 'All' },
+   { value: 'Thai', label: 'Thai', group: 'All' },
+   { value: 'Middle Eastern', label: 'Middle Eastern', group: 'All' },
+   { value: 'Other', label: 'Other', group: 'All' },
+  ];
+
+
+
+
+
 
 </script>
 
@@ -44,7 +69,7 @@
                 <option>30 minutes</option>
                 <option>45 minutes</option>
                 <option>1 hour</option>
-                <option>1hour 15 mins</option>
+                <option>1 hour 15 mins</option>
                 <option>1 hour 30 mins</option>
                 <option>1 hour 45 mins</option>
                 <option>2 hours</option>
@@ -72,38 +97,17 @@
               <Toggle bind:toggled label="Needs prep" />
           </FormGroup>
           <FormGroup label="Category" forValue="category">
-            <MultiSelect id='category' activeOption="false" bind:valueMultiSelect>
-              <option id="FR">French</option>
-              <option id="IN">Indian</option>
-              <option id="IT">Italian</option>
-              <option id="JP">Japanese</option>
-              <option id="MEX">Mexican</option>
-              <option id="AFR">African</option>
-              <option id="AM">American</option>
-              <option id="BR">British</option>
-              <option id="CAR">Caribbean</option>
-              <option id="CH">Chinese</option>
-              <option id="GR">Greek</option>
-              <option id="KOR">Korean</option>
-              <option id="MOR">Moroccan</option>
-              <option id="PAK">Pakistani</option>
-              <option id="POR">Portuguese</option>
-              <option id="SA">South American</option>
-              <option id="SP">Spanish</option>
-              <option id="TH">Thai</option>
-              <option id="ME">Middle Eastern</option>
-              <option id="OT">Other</option>
-            </MultiSelect>
-            </FormGroup>
-            <FormGroup label="Description" forValue="description">
-              <textarea use:autoresize class="c-input" id="description" rows="5" />
-            </FormGroup>
-            <FormGroup label="Ingredients" forValue="ingredients">
-              <textarea use:autoresize class="c-input" id="ingredients" rows="4" />
-            </FormGroup>
-            <FormGroup label="Instructions" forValue="instructions">
-              <textarea use:autoresize class="c-input" id="instructions" rows="3" />
-            </FormGroup>
+            <MultiSelect items={complexItems} bind:selectedValue isMulti={true} />
+          </FormGroup>
+          <FormGroup label="Description" forValue="description">
+            <textarea use:autoresize class="c-input" id="description" rows="5" />
+          </FormGroup>
+          <FormGroup label="Ingredients" forValue="ingredients">
+            <textarea use:autoresize class="c-input" id="ingredients" rows="4" />
+          </FormGroup>
+          <FormGroup label="Instructions" forValue="instructions">
+            <textarea use:autoresize class="c-input" id="instructions" rows="3" />
+          </FormGroup>
         </FormGroupLayout>
       </div>
     </Container>
